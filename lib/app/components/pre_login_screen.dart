@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:smart_learning_card/constant.dart';
+import 'package:smart_learning_card/app/base/constant.dart';
 
 import 'login_screen.dart';
 
@@ -21,7 +21,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
         backgroundColor: backgroundColor,
         title: Text(
           widget.title,
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
@@ -39,7 +39,7 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
             },
             child: Text(
               'Login',
-              style: defaultTitle
+              style: Theme.of(context).textTheme.headline1
             ),
           ),
         ),

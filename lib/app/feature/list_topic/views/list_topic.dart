@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../../constant.dart';
+import '../base/constant.dart';
 import '../components/topic_rounded.dart';
 import '../data/list_topic.dart';
 import '../models/topic_model.dart';
@@ -19,7 +19,7 @@ class ListTopicScreen extends StatelessWidget {
         backgroundColor: backgroundColor,
         title: Text(
           title,
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),

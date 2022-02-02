@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import '../../constant.dart';
+import 'package:get/get.dart';
+import '../feature/list_topic/view_models/list_topic_view_model.dart';
 import '../models/topic_model.dart';
-import '../screens/list_card.dart';
 
-class TopicRounded extends StatelessWidget {
+class TopicRounded extends GetView<ListTopicViewModel> {
   const TopicRounded({Key? key, required this.topic}) : super(key: key);
 
   final TopicModel topic;
@@ -20,13 +20,7 @@ class TopicRounded extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ListCardScreen(topicModel: topic)
-                ));
-            },
+            onTap: () => controller.toListCard(topic),
             child: Container(
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -44,7 +38,7 @@ class TopicRounded extends StatelessWidget {
                       Icons.title,
                       color: Colors.yellow,
                       size: 50,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -54,7 +48,7 @@ class TopicRounded extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: Text(
               topic.name,
-              style: defaultText
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           )
         ],
@@ -72,7 +66,7 @@ class ProcessPaint extends CustomPainter{
       Paint()
         ..color = Colors.white12
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 7
+        ..strokeWidth = 7,
     );
   }
 
