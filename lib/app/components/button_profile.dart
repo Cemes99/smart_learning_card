@@ -1,10 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_learning_card/app/feature/home/views/home_screen.dart';
 import 'package:smart_learning_card/app/screens/profile_details_screen.dart';
-
-
-import '../../main.dart';
 import '../../global/global.dart';
 
 class ButtonProfile extends StatelessWidget {
@@ -40,7 +38,7 @@ class ButtonProfile extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MyHomePage()
+                  builder: (context) => const HomeScreen()
                 ),
                 (Route<dynamic> route) => false
               );

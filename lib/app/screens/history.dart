@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constant.dart';
+import '../base/constant.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -13,17 +13,17 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           title,
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xff2b2b2b)
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor
         ),
         child: Center(
           child: Text(

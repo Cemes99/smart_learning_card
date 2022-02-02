@@ -1,20 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../global/global.dart';
-import '../../constant.dart';
+import 'package:smart_learning_card/app/feature/home/views/home_screen.dart';
+import 'package:smart_learning_card/app/feature/login/view_models/login_view_model.dart';
+import '../../../../global/global.dart';
+import '../../../base/constant.dart';
 
-import '../../main.dart';
-import 'register_screen.dart';
+import '../../register/view/register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends GetView<LoginViewModel> {
   const LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     const Widget _spacer = SizedBox(height: 15,);
@@ -24,13 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: backgroundColor,
         title: Text(
           'Login',
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
       body: Container(
-        decoration: defaultBackground,
+        color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
           child: ListView(
@@ -43,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                     hintText: 'Username',
                   ),
-                  style: defaultInputText,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
               _spacer,
@@ -55,24 +52,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: 'Password',
                   ),
                   obscureText: true,
-                  style: defaultInputText,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
               _spacer,
               TextButton(
-                style: defaultButtonStyle,
-                onPressed: () {
-                  global = true;
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => const MyHomePage()
-                    ),
-                    (Route<dynamic> route) => false
-                  );
-                },
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    textStyle: Theme.of(context).textTheme.bodyText1
+                ),
+                onPressed: controller.toHome,
                 child: Text(
                   'Login',
-                  style: defaultText,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
               _spacer,
@@ -82,17 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     'Don\'t have account',
-                    style: defaultText,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen()
-                        )
-                      );
-                    },
+                    onPressed: controller.toRegister,
                     child: Text(
                       'Sign up',
                       style: GoogleFonts.nunito(
@@ -105,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )
             ],
           ),
-        )
+        ),
       ),
     );
   }

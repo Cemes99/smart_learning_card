@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import '../components/button_profile.dart';
 
-import '../../constant.dart';
+import '../base/constant.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,18 +13,16 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           title,
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-            color: Color(0xff2b2b2b)
-        ),
+        color: Theme.of(context).backgroundColor,
         child: Column(
           children: const [
             ButtonProfile(name: 'Xem thông tin người dùng'),

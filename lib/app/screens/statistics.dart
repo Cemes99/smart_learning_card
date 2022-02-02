@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:smart_learning_card/constant.dart';
+import 'package:smart_learning_card/app/base/constant.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({Key? key}) : super(key: key);
@@ -11,20 +11,20 @@ class StatisticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           title,
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
       body: Container(
-        decoration: defaultBackground,
+        color: Theme.of(context).backgroundColor,
         child: Center(
           child: Text(
             'Statistics Screen',
-            style: defaultTitle,
+            style: Theme.of(context).textTheme.headline1,
           ),
         ),
       ),

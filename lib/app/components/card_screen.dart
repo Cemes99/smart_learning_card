@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,37 +17,40 @@ class CardScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: SizedBox(
-        height: 200,
+        height: 250,
         width: width,
-        child: card.img == '' ? const Text('no image') :
-        Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                tts.speak();
-              },
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                child: Image.asset(
-                  card.img,
-                  fit: BoxFit.cover,
-                ),
+        child: card.img == ''
+            ? const Text('no image')
+            : Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      tts.speak();
+                    },
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                      child: Image.asset(
+                        card.img,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Text(
+                      card.content,
+                      style: GoogleFonts.nunito(
+                        color: Colors.white,
+                        fontSize: 15,
+                        letterSpacing: 0.5,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 10,),
-            Center(
-              child: Text(
-                card.content,
-                style: GoogleFonts.nunito(
-                  color: Colors.white,
-                  fontSize: 15,
-                  letterSpacing: 0.5,
-                  decoration: TextDecoration.none
-                ),
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
@@ -57,13 +59,12 @@ class CardScreen extends StatelessWidget {
 class TTS {
   final FlutterTts tts = FlutterTts();
   late final String content;
+
   TTS({required this.content});
 
   Future speak() async {
-    /*
-    * vi-VN
-    * en-US
-    * */
+    // vi-VN
+    // en-US
     // print(await tts.getLanguages);
     await tts.setLanguage('vi-VN');
     await tts.setSpeechRate(0.45);

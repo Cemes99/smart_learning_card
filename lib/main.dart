@@ -1,138 +1,63 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'constant.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_learning_card/app/feature/home/views/home_screen.dart';
+import 'package:smart_learning_card/app/route/app_pages.dart';
+import 'package:smart_learning_card/app/route/app_routes.dart';
+import 'app/base/constant.dart';
 import 'global/global.dart';
 
 import 'app/screens/history.dart';
-import 'app/screens/list_topic.dart';
-import 'app/screens/pre_login_screen.dart';
+import 'app/feature/list_topic/views/list_topic.dart';
+import 'app/components/pre_login_screen.dart';
 import 'app/screens/profile.dart';
 import 'app/screens/statistics.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  final Future<FirebaseApp> _app = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Smart Learning For Kid',
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: backgroundColor,
+        textTheme: _textTheme(),
       ),
-      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  final List<String> _listTitle = const [
-    'List Topic',
-    'History',
-    'Statistics',
-    'Profile'
-  ];
-
-  final List<Widget> _list = const [
-    ListTopicScreen(),
-    HistoryScreen(),
-    StatisticsScreen(),
-    ProfileScreen()
-  ];
-
-  int choose = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: global
-        ? _list[choose]
-        : (
-          (choose >= 1 && choose <= 3)
-          ? PreLoginScreen(title: _listTitle[choose])
-          : _list[choose]
-        ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          border: Border(top: defaultAppBarLine)
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          iconSize: 30,
-          backgroundColor: backgroundColor,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 0
-          ),
-          unselectedLabelStyle: const TextStyle(
-              fontSize: 0
-          ),
-          currentIndex: choose,
-          onTap: (index) {
-            setState(() {
-              choose = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-                activeIcon: Icon(
-                  Icons.home_rounded,
-                  color: Colors.yellow,
-                ),
-                icon: Icon(
-                  Icons.home_outlined,
-                  color: Colors.grey,
-                ),
-                label: ""
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.history_rounded,
-                color: Colors.yellow,
-              ),
-              icon: Icon(
-                Icons.history_outlined,
-                color: Colors.grey,
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-                activeIcon: Icon(
-                  Icons.bar_chart_rounded,
-                  color: Colors.yellow,
-                ),
-                icon: Icon(
-                  Icons.bar_chart_outlined,
-                  color: Colors.grey,
-                ),
-                label: ""
-            ),
-            BottomNavigationBarItem(
-                activeIcon: Icon(
-                  Icons.person_rounded,
-                  color: Colors.yellow,
-                ),
-                icon: Icon(
-                  Icons.person_outlined,
-                  color: Colors.grey,
-                ),
-                label: ""
-            ),
-          ],
-        ),
+  TextTheme _textTheme() {
+    return TextTheme(
+      headline1: GoogleFonts.nunito(
+          color: Colors.white,
+          fontSize: 30,
+          decoration: TextDecoration.none,
+          fontWeight: FontWeight.w600,
+      ),
+      bodyText1: GoogleFonts.nunito(
+          color: Colors.white,
+          fontSize: 15,
+          decoration: TextDecoration.none,
+      ),
+      bodyText2: GoogleFonts.nunito(
+          color: Colors.black,
+          fontSize: 15,
+          decoration: TextDecoration.none,
       ),
     );
   }

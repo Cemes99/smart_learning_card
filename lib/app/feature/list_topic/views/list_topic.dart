@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
-import '../base/constant.dart';
-import '../components/topic_rounded.dart';
-import '../data/list_topic.dart';
-import '../models/topic_model.dart';
+import 'package:get/get.dart';
+import 'package:smart_learning_card/app/feature/list_topic/view_models/list_topic_view_model.dart';
+import '../../../base/constant.dart';
+import 'topic_rounded.dart';
+import '../../../data/list_topic.dart';
+import '../../../models/topic_model.dart';
 
-class ListTopicScreen extends StatelessWidget {
+class ListTopicScreen extends GetView<ListTopicViewModel> {
   const ListTopicScreen({Key? key}) : super(key: key);
 
   final String title = 'List Topic';
@@ -25,7 +26,7 @@ class ListTopicScreen extends StatelessWidget {
         shape: const Border(bottom: defaultAppBarLine),
       ),
       body: Container(
-        decoration: defaultBackground,
+        color: Theme.of(context).backgroundColor,
         child: ListView.separated(
           padding: const EdgeInsets.only(top: 30),
           scrollDirection: Axis.vertical,
@@ -34,9 +35,11 @@ class ListTopicScreen extends StatelessWidget {
             return TopicRounded(topic: list[index]);
           },
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 10,);
+            return const SizedBox(
+              height: 10,
+            );
           },
-        )
+        ),
       ),
     );
   }

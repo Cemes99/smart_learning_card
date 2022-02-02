@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_learning_card/app/base/constant.dart';
 
-import 'login_screen.dart';
+import '../feature/login/views/login_screen.dart';
 
 class PreLoginScreen extends StatefulWidget {
   const PreLoginScreen({Key? key, required this.title}) : super(key: key);
@@ -26,21 +26,21 @@ class _PreLoginScreenState extends State<PreLoginScreen> {
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
-      body: Container(
-        decoration: defaultBackground,
-        child: Center(
-          child: TextButton(
-            style: defaultButtonStyle,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen())
-              );
-            },
-            child: Text(
-              'Login',
-              style: Theme.of(context).textTheme.headline1
-            ),
+      body: Center(
+        child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
+              textStyle: Theme.of(context).textTheme.bodyText1
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen())
+            );
+          },
+          child: Text(
+            'Login',
+            style: Theme.of(context).textTheme.headline1
           ),
         ),
       ),

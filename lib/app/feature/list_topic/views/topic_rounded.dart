@@ -1,16 +1,17 @@
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../feature/list_topic/view_models/list_topic_view_model.dart';
-import '../models/topic_model.dart';
+import '../view_models/list_topic_view_model.dart';
+import '../../../models/topic_model.dart';
 
-class TopicRounded extends GetView<ListTopicViewModel> {
+class TopicRounded extends StatelessWidget {
   const TopicRounded({Key? key, required this.topic}) : super(key: key);
 
   final TopicModel topic;
 
   @override
   Widget build(BuildContext context) {
+    final ListTopicViewModel vm = ListTopicViewModel();
+
     double width = 100;
     double height = 150;
     return SizedBox(
@@ -20,7 +21,7 @@ class TopicRounded extends GetView<ListTopicViewModel> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () => controller.toListCard(topic),
+            onTap: () => vm.toListCard(topic),
             child: Container(
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,

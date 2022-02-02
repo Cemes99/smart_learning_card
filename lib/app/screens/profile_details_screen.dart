@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../constant.dart';
+import '../base/constant.dart';
 
 class ProfileDetails extends StatelessWidget {
   const ProfileDetails({Key? key}) : super(key: key);
@@ -12,71 +12,68 @@ class ProfileDetails extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           'Thông tin chi tiết',
-          style: defaultTitle,
+          style: Theme.of(context).textTheme.headline1,
         ),
         centerTitle: true,
         shape: const Border(bottom: defaultAppBarLine),
       ),
-      body: Container(
-          decoration: defaultBackground,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
-            child: ListView(
-              scrollDirection: Axis.vertical,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 100,
-                      decoration: borderInput,
-                      child: Text(
-                        'Tên người dùng',
-                        style: defaultInputText,
-                      ),
-                    ),
-                    Container(
-                      height: 80,
-                      width: 220,
-                      decoration: borderInput,
-                      child: Text(
-                        'Bé Bi',
-                        style: defaultText.copyWith(color: Colors.black),
-                      ),
-                    ),
-                  ],
+                Container(
+                  height: 50,
+                  width: 100,
+                  decoration: borderInput,
+                  child: Text(
+                    'Tên người dùng',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                 ),
-                _spacer,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 100,
-                      decoration: borderInput,
-                      child: Text(
-                        'Tên tài khoản',
-                        style: defaultInputText,
-                      ),
-                    ),
-                    Container(
-                      height: 80,
-                      width: 220,
-                      decoration: borderInput,
-                      child: Text(
-                        'username',
-                        style: defaultText.copyWith(color: Colors.black),
-                      ),
-                    ),
-                  ],
+                Container(
+                  height: 80,
+                  width: 220,
+                  decoration: borderInput,
+                  child: Text(
+                    'Bé Bi',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black),
+                  ),
                 ),
               ],
             ),
-          )
+            const Spacer(flex: 1,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 50,
+                  width: 100,
+                  decoration: borderInput,
+                  child: Text(
+                    'Tên tài khoản',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
+                Container(
+                  height: 80,
+                  width: 220,
+                  decoration: borderInput,
+                  child: Text(
+                    'username',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
