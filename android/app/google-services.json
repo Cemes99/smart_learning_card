@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "156014042516",
+    "project_id": "smart-learning-card",
+    "storage_bucket": "smart-learning-card.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156014042516:android:5737c645fbde8fd63bc381",
+        "android_client_info": {
+          "package_name": "com.example.smart_learning_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156014042516-h9fct4ee9l5bhe0pj3ktk216ajv8viun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJjSUVUD1aEd2xcCtm-kRDswInFi9IEVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156014042516-h9fct4ee9l5bhe0pj3ktk216ajv8viun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
