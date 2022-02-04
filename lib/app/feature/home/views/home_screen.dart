@@ -43,11 +43,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                   BottomNavigationBarItem(
                     activeIcon: Icon(
-                      Icons.history_rounded,
+                      Icons.menu_book_rounded,
                       color: Colors.yellow,
                     ),
                     icon: Icon(
-                      Icons.history_outlined,
+                      Icons.menu_book_outlined,
                       color: Colors.grey,
                     ),
                     label: "",
