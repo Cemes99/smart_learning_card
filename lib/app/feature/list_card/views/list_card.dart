@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_learning_card/app/feature/list_card/view_models/ListCardViewModel.dart';
+import 'package:smart_learning_card/app/feature/list_card/view_models/list_card_view_model.dart';
 
 import '../../../components/card_screen.dart';
 import '../../../data/list_card.dart';
