@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>156014042516-2trrkbhpakd1rh6jb4betspbrue3dku7.apps.googleusercontent.com</string>
+	<string>929949981287-6rdsgnouv0lfnga4u58ur9a2eb8gthd2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.156014042516-2trrkbhpakd1rh6jb4betspbrue3dku7</string>
+	<string>com.googleusercontent.apps.929949981287-6rdsgnouv0lfnga4u58ur9a2eb8gthd2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC9Bf4U7xAf4-EFgp4M0p9bhCRkyhqIpxU</string>
+	<string>AIzaSyCE8nzxH50gYPE8NJkrwwIv0qKLgsCOj7g</string>
 	<key>GCM_SENDER_ID</key>
-	<string>156014042516</string>
+	<string>929949981287</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.smartLearningCard</string>
 	<key>PROJECT_ID</key>
-	<string>smart-learning-card</string>
+	<string>smart-learning-card-98d4d</string>
 	<key>STORAGE_BUCKET</key>
-	<string>smart-learning-card.appspot.com</string>
+	<string>smart-learning-card-98d4d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:156014042516:ios:1716e950f2229f603bc381</string>
+	<string>1:929949981287:ios:5e62536aae3e9a4182d2c2</string>
+	<key>DATABASE_URL</key>
+	<string>https://smart-learning-card-98d4d-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

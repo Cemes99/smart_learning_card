@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "156014042516",
-    "project_id": "smart-learning-card",
-    "storage_bucket": "smart-learning-card.appspot.com"
+    "project_number": "929949981287",
+    "firebase_url": "https://smart-learning-card-98d4d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "smart-learning-card-98d4d",
+    "storage_bucket": "smart-learning-card-98d4d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:156014042516:android:5737c645fbde8fd63bc381",
+        "mobilesdk_app_id": "1:929949981287:android:59a279430ee2d0cb82d2c2",
         "android_client_info": {
           "package_name": "com.example.smart_learning_card"
         }
       },
       "oauth_client": [
         {
-          "client_id": "156014042516-h9fct4ee9l5bhe0pj3ktk216ajv8viun.apps.googleusercontent.com",
+          "client_id": "929949981287-4r54sa6m3p466ki27utdc4n550j3usjn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAJjSUVUD1aEd2xcCtm-kRDswInFi9IEVw"
+          "current_key": "AIzaSyCn3IWxLenX9ZHbt6zUNM4Q7OkAsgGf7R4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "156014042516-h9fct4ee9l5bhe0pj3ktk216ajv8viun.apps.googleusercontent.com",
+              "client_id": "929949981287-4r54sa6m3p466ki27utdc4n550j3usjn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "929949981287-6rdsgnouv0lfnga4u58ur9a2eb8gthd2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartLearningCard"
+              }
             }
           ]
         }
