@@ -10,3 +10,5 @@ const BoxDecoration borderInput = BoxDecoration(
 const Color backgroundColor = Color(0xff2b2b2b);
 
 const BorderSide defaultAppBarLine = BorderSide(color: Colors.grey, width: 2);
+
+const double appBarHeight = 56.0;
