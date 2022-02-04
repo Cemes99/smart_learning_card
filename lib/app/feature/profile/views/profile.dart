@@ -1,35 +1,20 @@
 
 import 'package:flutter/material.dart';
-import '../components/button_profile.dart';
+import 'package:get/get.dart';
+import 'package:smart_learning_card/app/components/default_app_bar.dart';
+import 'package:smart_learning_card/app/feature/profile/view_models/profile_view_model.dart';
+import 'components/button_profile.dart';
 
-import '../base/constant.dart';
+import '../../../base/constant.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends GetView<ProfileViewModel> {
   const ProfileScreen({Key? key}) : super(key: key);
-
-  final String title = 'Profile';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        centerTitle: true,
-        shape: const Border(bottom: defaultAppBarLine),
-      ),
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        child: Column(
-          children: const [
-            ButtonProfile(name: 'Xem thông tin người dùng'),
-            ButtonProfile(name: 'Đăng xuất')
-          ],
-        ),
-      ),
+      appBar: DefaultAppBar(title: controller.title,),
+      body: controller.display(),
     );
   }
 }
