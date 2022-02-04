@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import '../view_models/list_topic_view_model.dart';
-import '../../../models/topic_model.dart';
+import '../../view_models/list_topic_view_model.dart';
+import '../../../../models/topic_model.dart';
 
 class TopicRounded extends StatelessWidget {
   const TopicRounded({Key? key, required this.topic}) : super(key: key);
