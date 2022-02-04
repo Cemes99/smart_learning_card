@@ -1,20 +1,19 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_learning_card/app/components/input_field.dart';
+import 'package:smart_learning_card/app/feature/register/view_models/register_view_model.dart';
 
 import '../../../base/constant.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends GetView<RegisterViewModel> {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  @override
   Widget build(BuildContext context) {
-    const Widget _spacer = SizedBox(height: 15,);
+    const Widget _spacer = SizedBox(
+      height: 15,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -33,49 +32,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              Container(
-                decoration: borderInput,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Username',
-                  ),
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+              InputField(
+                onChanged: (text) => controller.onUsernameChange(text),
+                hint: controller.hintUsername,
+                obscure: false,
               ),
               _spacer,
-              Container(
-                decoration: borderInput,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Password',
-                  ),
-                  obscureText: true,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+              InputField(
+                onChanged: (text) => controller.onPasswordChange(text),
+                hint: controller.hintPassword,
+                obscure: true,
               ),
               _spacer,
-              Container(
-                decoration: borderInput,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Re-Password',
-                  ),
-                  obscureText: true,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+              InputField(
+                onChanged: (text) => controller.onRepeatPasswordChange(text),
+                hint: controller.hintRepeatPassword,
+                obscure: true,
               ),
               _spacer,
               TextButton(
                 style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: Theme.of(context).textTheme.bodyText1
+                  backgroundColor: Colors.blue,
                 ),
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child: Text(
                   'Register',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -91,17 +70,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Login',
-                        style: GoogleFonts.nunito(
-                          color: Colors.blue,
-                          fontSize: 15,
-                        ),
-                      )
-                  )
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Login',
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                  ),
                 ],
               )
             ],

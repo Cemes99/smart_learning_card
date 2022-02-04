@@ -1,31 +1,22 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_learning_card/app/feature/home/views/home_screen.dart';
-import 'package:smart_learning_card/app/feature/login/view_models/login_view_model.dart';
-import '../../../../global/global.dart';
-import '../../../base/constant.dart';
 
-import '../../register/view/register_screen.dart';
+import '../../../components/input_field.dart';
+import '../../../components/default_app_bar.dart';
+import '../view_models/login_view_model.dart';
 
 class LoginScreen extends GetView<LoginViewModel> {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const Widget _spacer = SizedBox(height: 15,);
+    const Widget _spacer = SizedBox(
+      height: 15,
+    );
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title: Text(
-          'Login',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        centerTitle: true,
-        shape: const Border(bottom: defaultAppBarLine),
-      ),
+      appBar: DefaultAppBar(title: controller.title),
       body: Container(
         color: Theme.of(context).backgroundColor,
         child: Padding(
@@ -33,35 +24,43 @@ class LoginScreen extends GetView<LoginViewModel> {
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              Container(
-                decoration: borderInput,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Username',
-                  ),
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+              InputField(
+                onChanged: (text) => controller.onUsernameChange(text),
+                hint: controller.hintTextUsername,
+                obscure: false,
               ),
               _spacer,
-              Container(
-                decoration: borderInput,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                      hintText: 'Password',
-                  ),
-                  obscureText: true,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+              InputField(
+                onChanged: (text) => controller.onPasswordChange(text),
+                hint: controller.hintTextPassword,
+                obscure: true,
               ),
               _spacer,
               TextButton(
                 style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: Theme.of(context).textTheme.bodyText1
+                  backgroundColor: Colors.blue,
+                  textStyle: Theme.of(context).textTheme.bodyText1,
                 ),
-                onPressed: controller.toHome,
+                onPressed: () async {
+                  Get.defaultDialog(
+                    title: await controller.submit()
+                        ? 'Đăng nhập thành công'
+                        : 'Đăng nhập thất bại',
+                    titleStyle: Theme.of(context).textTheme.headline2,
+                    content: Text(
+                      controller.submitResult.value,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    // cancel: TextButton(
+                    //   onPressed: () => Get.offAll(this),
+                    //   child: const Text('Cancel'),
+                    // ),
+                    confirm: TextButton(
+                      onPressed: () => controller.toHome(),
+                      child: const Text('OK'),
+                    ),
+                  );
+                },
                 child: Text(
                   'Login',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -77,15 +76,14 @@ class LoginScreen extends GetView<LoginViewModel> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   TextButton(
-                    onPressed: controller.toRegister,
-                    child: Text(
-                      'Sign up',
-                      style: GoogleFonts.nunito(
-                        color: Colors.blue,
-                        fontSize: 15,
-                      ),
-                    )
-                  )
+                      onPressed: controller.toRegister,
+                      child: Text(
+                        'Sign up',
+                        style: GoogleFonts.nunito(
+                          color: Colors.blue,
+                          fontSize: 15,
+                        ),
+                      ))
                 ],
               )
             ],
