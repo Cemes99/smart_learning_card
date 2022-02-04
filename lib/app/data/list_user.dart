@@ -1,5 +1,5 @@
 
-import '../models/user_model.dart';
+import '../../data/users/models/user_model.dart';
 
 List<UserModel> listUser = [
   UserModel(username: 'username1', password: '123456', name: 'Bé Bi'),
