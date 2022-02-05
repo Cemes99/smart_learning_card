@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:smart_learning_card/app/base/constant.dart';
 import 'package:smart_learning_card/data/users/service/user_service.dart';
 import '../../../route/app_routes.dart';
 import '../../../../global/global.dart';
@@ -12,10 +13,7 @@ class LoginViewModel extends BaseViewModel {
   final RxString _username = RxString('');
   final RxString _password = RxString('');
 
-  final RxnString _userErrorText = RxnString(null);
-  final RxnString _passwordErrorText = RxnString(null);
-
-  final RxString submitResult = RxString('Đăng nhập thành công');
+  LoginState result = LoginState.succeed;
 
   @override
   void onInit() {
@@ -32,7 +30,6 @@ class LoginViewModel extends BaseViewModel {
       onPasswordChange,
       time: const Duration(microseconds: 1000),
     );
-
   }
 
   void onUsernameChange(String username) {
@@ -45,28 +42,18 @@ class LoginViewModel extends BaseViewModel {
 
   void _validateUsername(String username) {
     if (username.length < 5 || username.length > 25) {
-      _userErrorText.value = 'Tài khoản có độ dài 6 - 18 ký tự';
-      return;
+      result = LoginState.invalidLengthUsername;
+    } else if (_isFormatUsernameCorrect(username)) {
+      result = LoginState.invalidFormatUsername;
     }
-    if (_isFormatUsernameCorrect(username)) {
-      _userErrorText.value =
-          'Tài khoản chỉ gồm các ký tự số, chữ cái, dấu gạch dưới';
-      return;
-    }
-    _userErrorText.value = null;
   }
 
   void _validatePassword(String password) {
     if (password.length < 6 || password.length > 18) {
-      _passwordErrorText.value = 'Mật khẩu có độ dài 6 - 18 ký tự';
-      return;
+      result = LoginState.invalidLengthPassword;
+    } else if (_isFormatPasswordCorrect(password)) {
+      result = LoginState.invalidFormatPassword;
     }
-    if (_isFormatPasswordCorrect(password)) {
-      _passwordErrorText.value =
-          'Mật khẩu chỉ gồm các ký tự số, chữ cái, dấu gạch dưới';
-      return;
-    }
-    _passwordErrorText.value = null;
   }
 
   bool _isFormatUsernameCorrect(String username) {
@@ -92,28 +79,21 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<bool> submit() async {
+    result = LoginState.succeed;
+
     _validateUsername(_username.value);
-    if (_userErrorText.value != null) {
-      submitResult.value = _userErrorText.value!;
-      return false;
-    }
+    if(result != LoginState.succeed) return false;
     _validatePassword(_password.value);
-    if (_passwordErrorText.value != null) {
-      submitResult.value = _passwordErrorText.value!;
-      return false;
-    }
+    if(result != LoginState.succeed) return false;
 
-    Future<String> result = UserService().signIn(_username.value, _password.value);
-    print(await result);
-    submitResult.value = await result;
-
-    if (await result != 'Đăng nhập thành công') return false;
+    result = await UserService().signIn(_username.value, _password.value);
+    if (result != LoginState.succeed) return false;
 
     return true;
   }
 
   void toHome() {
-    if (submitResult.value == 'Đăng nhập thành công') {
+    if (result == LoginState.succeed) {
       global = true;
       Get.offAllNamed(Routes.home);
     }
@@ -123,5 +103,15 @@ class LoginViewModel extends BaseViewModel {
     Get.toNamed(Routes.register);
   }
 
-  void callDialog() {}
+  String submitResult() {
+    switch (result) {
+      case LoginState.invalidLengthUsername: return 'Tài khoản có độ dài 6 - 18';
+      case LoginState.invalidFormatUsername: return 'Tài khoản chỉ chứa ký tự, số, dấu gạch dưới';
+      case LoginState.invalidLengthPassword: return 'Mật khẩu có độ dài 6 - 18';
+      case LoginState.invalidFormatPassword: return 'Mật khẩu chỉ chứa ký tự, số, dấu gạch dưới';
+      case LoginState.noUser: return 'Tài khoản không tồn tại';
+      case LoginState.wrongPassword: return 'Mật khẩu không chính xác';
+      default: return 'Đăng nhập thành công';
+    }
+  }
 }

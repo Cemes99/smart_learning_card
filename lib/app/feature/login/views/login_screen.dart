@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_learning_card/app/base/constant.dart';
 
 import '../../../components/input_field.dart';
 import '../../../components/default_app_bar.dart';
@@ -42,21 +43,19 @@ class LoginScreen extends GetView<LoginViewModel> {
                   textStyle: Theme.of(context).textTheme.bodyText1,
                 ),
                 onPressed: () async {
+                  await controller.submit();
+
                   Get.defaultDialog(
-                    title: await controller.submit()
+                    title: controller.result == LoginState.succeed
                         ? 'Đăng nhập thành công'
                         : 'Đăng nhập thất bại',
                     titleStyle: Theme.of(context).textTheme.headline2,
-                    content: Text(
-                      controller.submitResult.value,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    // cancel: TextButton(
-                    //   onPressed: () => Get.offAll(this),
-                    //   child: const Text('Cancel'),
-                    // ),
+                    middleText: controller.submitResult(),
+                    middleTextStyle: Theme.of(context).textTheme.bodyText2,
                     confirm: TextButton(
-                      onPressed: () => controller.toHome(),
+                      onPressed: () => controller.result == LoginState.succeed
+                          ? controller.toHome()
+                          : Navigator.of(Get.overlayContext!).pop(),
                       child: const Text('OK'),
                     ),
                   );
