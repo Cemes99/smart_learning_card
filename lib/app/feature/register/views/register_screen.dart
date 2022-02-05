@@ -1,10 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_learning_card/app/components/input_field.dart';
-import 'package:smart_learning_card/app/feature/register/view_models/register_view_model.dart';
 
 import '../../../base/constant.dart';
+import '../../../components/input_field.dart';
+import '../view_models/register_view_model.dart';
 
 class RegisterScreen extends GetView<RegisterViewModel> {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -54,7 +54,25 @@ class RegisterScreen extends GetView<RegisterViewModel> {
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blue,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await controller.submit();
+
+                  Get.defaultDialog(
+                    title: controller.result == RegisterState.succeed
+                        ? 'Đăng ký thành công'
+                        : 'Đăng ký thất bại',
+                    titleStyle: Theme.of(context).textTheme.headline2,
+                    middleText: controller.submitResult(),
+                    middleTextStyle: Theme.of(context).textTheme.bodyText2,
+                    confirm: TextButton(
+                      onPressed: () => controller.result ==
+                          RegisterState.succeed
+                          ? controller.toHome()
+                          : Navigator.of(Get.overlayContext!).pop(),
+                      child: const Text('OK'),
+                    ),
+                  );
+                },
                 child: Text(
                   'Register',
                   style: Theme.of(context).textTheme.bodyText1,

@@ -1,6 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:smart_learning_card/app/base/base_view_model.dart';
+import 'package:smart_learning_card/app/base/constant.dart';
 import 'package:smart_learning_card/app/route/app_routes.dart';
 import 'package:smart_learning_card/data/users/service/user_service.dart';
 import 'package:smart_learning_card/global/global.dart';
@@ -15,13 +16,32 @@ class RegisterViewModel extends BaseViewModel {
   final RxString _password = RxString('');
   final RxString _repeatPassword = RxString('');
 
-  final RxnString _userErrorText = RxnString(null);
-  final RxnString _passwordErrorText = RxnString(null);
-  final RxnString _repeatPasswordErrorText = RxnString(null);
+  RegisterState result = RegisterState.succeed;
 
-  final RxString submitResult = RxString('Đăng nhập thành công');
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
 
-  // final RxnString
+    debounce(
+      _username,
+      onUsernameChange,
+      time: const Duration(microseconds: 1000),
+    );
+
+    debounce(
+      _password,
+      onPasswordChange,
+      time: const Duration(microseconds: 1000),
+    );
+
+    debounce(
+      _repeatPassword,
+      onRepeatPasswordChange,
+      time: const Duration(microseconds: 1000),
+    );
+  }
+
   void onUsernameChange(String username) {
     _username.value = username;
   }
@@ -36,41 +56,26 @@ class RegisterViewModel extends BaseViewModel {
 
   void _validateUsername(String username) {
     if (username.length < 5 || username.length > 25) {
-      _userErrorText.value = 'Tài khoản có độ dài 6 - 18 ký tự';
-      return;
+      result = RegisterState.invalidLengthUsername;
+    } else if (_isFormatUsernameCorrect(username)) {
+      result = RegisterState.invalidFormatUsername;
     }
-    if (_isFormatUsernameCorrect(username)) {
-      _userErrorText.value =
-      'Tài khoản chỉ gồm các ký tự số, chữ cái, dấu gạch dưới';
-      return;
-    }
-    _userErrorText.value = null;
   }
 
   void _validatePassword(String password) {
     if (password.length < 6 || password.length > 18) {
-      _passwordErrorText.value = 'Mật khẩu có độ dài 6 - 18 ký tự';
-      return;
+      result = RegisterState.invalidLengthPassword;
+    } else if (_isFormatPasswordCorrect(password)) {
+      result = RegisterState.invalidFormatPassword;
     }
-    if (_isFormatPasswordCorrect(password)) {
-      _passwordErrorText.value =
-      'Mật khẩu chỉ gồm các ký tự số, chữ cái, dấu gạch dưới';
-      return;
-    }
-    _passwordErrorText.value = null;
   }
 
   void _validateRepeatPassword(String password) {
     if (password.length < 6 || password.length > 18) {
-      _repeatPasswordErrorText.value = 'Mật khẩu có độ dài 6 - 18 ký tự';
-      return;
+      result = RegisterState.invalidLengthRepeatPassword;
+    } else if (_isFormatPasswordCorrect(password)) {
+      result = RegisterState.invalidFormatRepeatPassword;
     }
-    if (_isFormatPasswordCorrect(password)) {
-      _repeatPasswordErrorText.value =
-      'Mật khẩu chỉ gồm các ký tự số, chữ cái, dấu gạch dưới';
-      return;
-    }
-    _repeatPasswordErrorText.value = null;
   }
 
   bool _isFormatUsernameCorrect(String username) {
@@ -96,37 +101,48 @@ class RegisterViewModel extends BaseViewModel {
   }
 
   Future<bool> submit() async {
-    // print(_username);
-    // print(_password);
-
+    result = RegisterState.succeed;
+    
     _validateUsername(_username.value);
-    if (_userErrorText.value != null) {
-      submitResult.value = _userErrorText.value!;
-      return false;
-    }
+    if (result != RegisterState.succeed) return false;
     _validatePassword(_password.value);
-    if (_passwordErrorText.value != null) {
-      submitResult.value = _passwordErrorText.value!;
+    if (result != RegisterState.succeed) return false;
+    _validateRepeatPassword(_repeatPassword.value);
+    if (result != RegisterState.succeed) return false;
+
+    if(_password.value != _repeatPassword.value) {
+      result = RegisterState.differPassword;
       return false;
     }
-
-    String result = await UserService().signIn(_username.value, _password.value);
-    submitResult.value = result;
-    if (result != 'Đăng ký thành công') return false;
+    
+    result = await UserService().register(_username.value, _password.value);
+    if (result != RegisterState.succeed) return false;
 
     return true;
   }
 
   void toHome() {
-    if (submitResult.value == 'Đăng nhập thành công') {
+    if (result == RegisterState.succeed) {
       global = true;
       Get.offAllNamed(Routes.home);
     }
   }
 
-  void toRegister() {
-    Get.toNamed(Routes.register);
+  void toLogin() {
+    Get.offNamed(Routes.login);
   }
-
-  void callDialog() {}
+  
+  String submitResult() {
+    switch (result) {
+      case RegisterState.invalidLengthUsername: return 'Tài khoản có độ dài 6 - 18';
+      case RegisterState.invalidFormatUsername: return 'Tài khoản chỉ chứa ký tự, số, dấu gạch dưới';
+      case RegisterState.invalidLengthPassword: return 'Mật khẩu có độ dài 6 - 18';
+      case RegisterState.invalidFormatPassword: return 'Mật khẩu chỉ chứa ký tự, số, dấu gạch dưới';
+      case RegisterState.invalidLengthRepeatPassword: return 'Mật khẩu có độ dài 6 - 18';
+      case RegisterState.invalidFormatRepeatPassword: return 'Mật khẩu chỉ chứa ký tự, số, dấu gạch dưới';
+      case RegisterState.differPassword: return 'Hai mật khẩu cần giống nhau';
+      case RegisterState.existedUser: return 'Tài khoản đã tồn tại';
+      default: return 'Đăng ký thành công';
+    }
+  }
 }
