@@ -1,9 +1,9 @@
 
 class TopicModel {
-  late final String id;
-  late final String name;
-  late final String listCard;
-  late final String img;
+  final String id;
+  final String name;
+  final List<String> listCard;
+  final String img;
 
   TopicModel({
     required this.id,
