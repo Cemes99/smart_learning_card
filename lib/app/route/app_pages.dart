@@ -1,5 +1,7 @@
 
 import 'package:get/get.dart';
+import 'package:smart_learning_card/app/feature/exam_result/binding/exam_result_binding.dart';
+import 'package:smart_learning_card/app/feature/exam_result/views/exam_result.dart';
 import 'package:smart_learning_card/app/feature/profile/views/profile_details_screen.dart';
 import '../feature/exam/binding/exam_binding.dart';
 import '../feature/exam/views/exam_screen.dart';
@@ -68,6 +70,11 @@ class AppPages {
       name: Routes.exam,
       page: () => const ExamScreen(),
       binding: ExamBinding(),
+    ),
+    GetPage(
+      name: Routes.examResult,
+      page: () => const ExamResultScreen(),
+      binding: ExamResultBinding(),
     ),
   ];
 }
