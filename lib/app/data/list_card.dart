@@ -1,5 +1,5 @@
 
-import '../models/card_model.dart';
+import '../../data/cards/models/card_model.dart';
 
 List<CardModel> listCard = [
   CardModel(id: '1', content: 'Chữ A', img: 'assets/vi_alphabet/A.png'),
@@ -40,5 +40,9 @@ List<CardModel> listCard = [
   CardModel(id: '36', content: 'Con cừu', img: 'assets/animals/con_cuu.png'),
   CardModel(id: '37', content: 'Con công', img: 'assets/animals/con_cong.png'),
   CardModel(id: '38', content: 'Con cá vàng', img: 'assets/animals/con_ca_vang.png'),
+  CardModel(id: '39', content: 'Con cá sấu', img: 'assets/animals/con_ca_sau.png'),
+  CardModel(id: '40', content: 'Con cua', img: 'assets/animals/con_cua.png'),
+  CardModel(id: '41', content: 'Con hổ', img: 'assets/animals/con_ho.png'),
+  CardModel(id: '42', content: 'Con tôm', img: 'assets/animals/con_tom.png'),
 
 ];

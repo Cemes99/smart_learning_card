@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_learning_card/app/route/app_pages.dart';
+import 'app/route/app_pages.dart';
 import 'app/base/constant.dart';
 
 Future<void> main() async {
@@ -49,6 +49,17 @@ class MyApp extends StatelessWidget {
           fontSize: 30,
           decoration: TextDecoration.none,
           fontWeight: FontWeight.w600,
+      ),
+      headline2: GoogleFonts.nunito(
+        color: Colors.black,
+        fontSize: 30,
+        decoration: TextDecoration.none,
+        fontWeight: FontWeight.w600,
+      ),
+      headline3: GoogleFonts.nunito(
+        color: Colors.grey,
+        fontSize: 13,
+        decoration: TextDecoration.none,
       ),
       bodyText1: GoogleFonts.nunito(
           color: Colors.white,

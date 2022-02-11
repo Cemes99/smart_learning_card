@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../view_models/register_view_model.dart';
 import '../../../base/constant.dart';
 import '../../../components/input_field.dart';
-import '../view_models/register_view_model.dart';
 
 class RegisterScreen extends GetView<RegisterViewModel> {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -56,19 +55,17 @@ class RegisterScreen extends GetView<RegisterViewModel> {
                 ),
                 onPressed: () async {
                   await controller.submit();
-
                   Get.defaultDialog(
                     title: controller.result == RegisterState.succeed
                         ? 'Đăng ký thành công'
                         : 'Đăng ký thất bại',
-                    titleStyle: Theme.of(context).textTheme.headline2,
+                    titleStyle: ThemeData().textTheme.headline2,
                     middleText: controller.submitResult(),
-                    middleTextStyle: Theme.of(context).textTheme.bodyText2,
+                    middleTextStyle: ThemeData().textTheme.headline3,
                     confirm: TextButton(
-                      onPressed: () => controller.result ==
-                          RegisterState.succeed
-                          ? controller.toHome()
-                          : Navigator.of(Get.overlayContext!).pop(),
+                      onPressed: controller.result == RegisterState.succeed
+                          ? controller.toHome
+                          : Get.back,
                       child: const Text('OK'),
                     ),
                   );

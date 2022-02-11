@@ -1,13 +1,14 @@
 
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smart_learning_card/data/tests/service/test_service.dart';
-import 'package:smart_learning_card/global/global.dart';
 import '../../../base/base_view_model.dart';
 import '../../../data/list_card.dart';
-import '../../../../data/topics/models/card_model.dart';
+import '../../../../data/tests/service/test_service.dart';
+import '../../../../data/cards/models/card_model.dart';
 import '../../../../data/topics/models/topic_model.dart';
+import '../../../../global/global.dart';
 
 class ExamViewModel extends BaseViewModel {
   static final TopicModel _topicModel = Get.arguments;
@@ -25,9 +26,9 @@ class ExamViewModel extends BaseViewModel {
 
   void makeTest() {
     base.value = [];
-    for(int i = 0; i < _topicModel.listCard.length; i++) {
-      for(CardModel c in listCard) {
-        if(c.id == _topicModel.listCard[i]) base.add(c);
+    for (int i = 0; i < _topicModel.listCard.length; i++) {
+      for (CardModel c in listCard) {
+        if (c.id == _topicModel.listCard[i]) base.add(c);
       }
     }
 
@@ -36,18 +37,18 @@ class ExamViewModel extends BaseViewModel {
     clone.value = [];
     leftRight.value = [];
 
-    for(int i = 0; i < base.length; i++) {
+    for (int i = 0; i < base.length; i++) {
       checker.add(i);
     }
 
-    for(int i = 0; i < limitTest; i++) {
+    for (int i = 0; i < limitTest; i++) {
       int x, y;
       x = Random().nextInt(checker.length);
       card.add(base[checker[x]]);
 
       do {
         y = Random().nextInt(base.length);
-      } while(y == checker[x]);
+      } while (y == checker[x]);
       clone.add(base[y]);
       leftRight.add(Random().nextBool());
 
@@ -57,7 +58,7 @@ class ExamViewModel extends BaseViewModel {
     choose.value = [];
     answer.value = [];
     question.value = [];
-    for(int i = 0; i < limitTest; i++) {
+    for (int i = 0; i < limitTest; i++) {
       choose.add(0);
       answer.add(0);
       question.add('');
@@ -66,10 +67,30 @@ class ExamViewModel extends BaseViewModel {
 
   void submit() {
     List<bool> checkAnswer = [];
-    for(int i = 0; i < limitTest; i++) {
+    int score = 0;
+    for (int i = 0; i < limitTest; i++) {
+      if (choose[i] == answer[i]) score++;
       checkAnswer.add(choose[i] == answer[i]);
     }
 
-    TestService().submitTest(user, question, checkAnswer);
+    TestService().submitTest(
+      user,
+      title,
+      question,
+      checkAnswer,
+      '$score/$limitTest',
+      DateTime.now(),
+    );
+
+    Get.defaultDialog(
+      title: 'Kết quả làm bài',
+      titleStyle: ThemeData().textTheme.headline2,
+      middleText: 'Số câu đúng $score/$limitTest',
+      middleTextStyle: ThemeData().textTheme.headline3,
+      confirm: TextButton(
+        onPressed: Get.back,
+        child: const Text('OK'),
+      ),
+    );
   }
 }

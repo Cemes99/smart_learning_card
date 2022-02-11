@@ -1,41 +1,60 @@
-import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/user_model.dart';
+import '../../../app/base/constant.dart';
 
 class UserService {
-  final DatabaseReference _database =
-      FirebaseDatabase.instance.ref('/list_user');
+  static const String _path = 'users';
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection(_path);
 
-  Future<String> signIn(String username, String password) async {
-    String result = 'Đăng nhập thành công';
-    StreamSubscription stream = _database.child('/$username').onValue.listen(
-      (event) {
-        if (event.snapshot.value == null) {
-          result = 'Tài khoản không tồn tại';
-        } else {
-          for (var x in event.snapshot.children) {
-            if (x.key == 'password' && password != x.value) {
-              result = 'Mật khẩu không chính xác';
-            }
-          }
-        }
-      },
-    );
+  Future<LoginState> signIn(String username, String password) async {
+    QuerySnapshot querySnapshot = await users.get();
+    for (var value in querySnapshot.docs) {
+      DocumentSnapshot temp = await users.doc(value.id).get();
+      if (temp['username'] == username) {
+        if (temp['password'] != password) return LoginState.wrongPassword;
 
-    await Future.delayed(const Duration(microseconds: 2000));
-    print(result + '---');
-    return result;
+        return LoginState.succeed;
+      }
+    }
+
+    return LoginState.noUser;
   }
 
-  String register(String username, String password) {
-    String result = 'Đăng ký thành công';
-    _database.child('/$username').onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        result = 'Tài khoản đã tồn tại';
-        return;
-      }
-    });
+  Future<RegisterState> register(String username, String password) async {
+    QuerySnapshot querySnapshot = await users.get();
+    for (var value in querySnapshot.docs) {
+      DocumentSnapshot temp = await users.doc(value.id).get();
+      if (temp['username'] == username) return RegisterState.existedUser;
+    }
 
-    return result;
+    dynamic err;
+
+    users.add({
+      'username': username,
+      'name': '',
+      'password': password,
+      'listTopicDetails': [],
+    }).catchError((error) => err = error);
+    if (err != null) return RegisterState.bug;
+
+    return RegisterState.succeed;
+  }
+
+  Future<UserModel> profileDetails(String username) async {
+    QuerySnapshot querySnapshot = await users.get();
+    for (var value in querySnapshot.docs) {
+      DocumentSnapshot temp = await users.doc(value.id).get();
+      if (temp['username'] == username) {
+        return UserModel(
+          username: username,
+          password: temp['password'],
+          name: temp['name'],
+        );
+      }
+    }
+
+    return UserModel(username: '', password: '', name: '');
   }
 }

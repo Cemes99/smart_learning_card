@@ -95,6 +95,7 @@ class LoginViewModel extends BaseViewModel {
   void toHome() {
     if (result == LoginState.succeed) {
       global = true;
+      user = _username.value;
       Get.offAllNamed(Routes.home);
     }
   }

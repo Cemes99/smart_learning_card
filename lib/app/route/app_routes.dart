@@ -10,4 +10,5 @@ class Routes {
   static const String statistics = '/Statistics';
   static const String exam = '/Exam';
   static const String examResult = '/ExamResult';
+  static const String examResultDetails = '/ExamResultDetails';
 }

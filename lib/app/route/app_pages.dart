@@ -1,8 +1,10 @@
 
 import 'package:get/get.dart';
-import 'package:smart_learning_card/app/feature/exam_result/binding/exam_result_binding.dart';
-import 'package:smart_learning_card/app/feature/exam_result/views/exam_result.dart';
-import 'package:smart_learning_card/app/feature/profile/views/profile_details_screen.dart';
+
+import '../feature/exam_result/binding/exam_result_binding.dart';
+import '../feature/exam_result/views/exam_result.dart';
+import '../feature/exam_result/views/exam_result_details.dart';
+import '../feature/profile/views/profile_details_screen.dart';
 import '../feature/exam/binding/exam_binding.dart';
 import '../feature/exam/views/exam_screen.dart';
 import '../feature/profile/binding/profile_binding.dart';
@@ -74,6 +76,11 @@ class AppPages {
     GetPage(
       name: Routes.examResult,
       page: () => const ExamResultScreen(),
+      binding: ExamResultBinding(),
+    ),
+    GetPage(
+      name: Routes.examResultDetails,
+      page: () => const ExamResultDetails(),
       binding: ExamResultBinding(),
     ),
   ];

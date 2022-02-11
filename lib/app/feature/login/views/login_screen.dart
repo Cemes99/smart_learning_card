@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_learning_card/app/base/constant.dart';
-
+import '../view_models/login_view_model.dart';
+import '../../../base/constant.dart';
 import '../../../components/input_field.dart';
 import '../../../components/default_app_bar.dart';
-import '../view_models/login_view_model.dart';
 
 class LoginScreen extends GetView<LoginViewModel> {
   const LoginScreen({Key? key}) : super(key: key);
@@ -44,18 +43,17 @@ class LoginScreen extends GetView<LoginViewModel> {
                 ),
                 onPressed: () async {
                   await controller.submit();
-
                   Get.defaultDialog(
                     title: controller.result == LoginState.succeed
                         ? 'Đăng nhập thành công'
                         : 'Đăng nhập thất bại',
-                    titleStyle: Theme.of(context).textTheme.headline2,
+                    titleStyle: ThemeData().textTheme.headline2,
                     middleText: controller.submitResult(),
-                    middleTextStyle: Theme.of(context).textTheme.bodyText2,
+                    middleTextStyle: ThemeData().textTheme.headline3,
                     confirm: TextButton(
-                      onPressed: () => controller.result == LoginState.succeed
-                          ? controller.toHome()
-                          : Navigator.of(Get.overlayContext!).pop(),
+                      onPressed: controller.result == LoginState.succeed
+                          ? controller.toHome
+                          : Get.back,
                       child: const Text('OK'),
                     ),
                   );

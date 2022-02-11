@@ -1,10 +1,10 @@
 
 import 'package:get/get.dart';
-import 'package:smart_learning_card/app/feature/exam/view_models/exam_view_model.dart';
-import 'package:smart_learning_card/app/feature/home/view_models/home_view_model.dart';
-import 'package:smart_learning_card/app/feature/list_topic/view_models/list_topic_view_model.dart';
-import 'package:smart_learning_card/app/feature/profile/view_models/profile_view_model.dart';
-import 'package:smart_learning_card/app/feature/statistics/view_models/statistics_view_model.dart';
+import '../view_models/home_view_model.dart';
+import '../../exam_result/view_models/exam_result_view_model.dart';
+import '../../list_topic/view_models/list_topic_view_model.dart';
+import '../../profile/view_models/profile_view_model.dart';
+import '../../statistics/view_models/statistics_view_model.dart';
 
 class HomeBinding extends Bindings {
   @override
@@ -13,7 +13,7 @@ class HomeBinding extends Bindings {
     Get.lazyPut<HomeViewModel>(() => HomeViewModel());
 
     Get.lazyPut<ListTopicViewModel>(() => ListTopicViewModel());
-    Get.lazyPut<ExamViewModel>(() => ExamViewModel());
+    Get.lazyPut<ExamResultViewModel>(() => ExamResultViewModel());
     Get.lazyPut<StatisticsViewModel>(() => StatisticsViewModel());
     Get.lazyPut<ProfileViewModel>(() => ProfileViewModel());
   }

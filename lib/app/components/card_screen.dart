@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../models/card_model.dart';
+import '../base/text_to_speech.dart';
+import '../../data/cards/models/card_model.dart';
 
 class CardScreen extends StatelessWidget {
   const CardScreen({Key? key, required this.card}) : super(key: key);
@@ -12,7 +11,7 @@ class CardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final TTS tts = TTS(content: card.content);
+    final TextToSpeech tts = TextToSpeech(content: card.content);
 
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -24,14 +23,17 @@ class CardScreen extends StatelessWidget {
             : Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      tts.speak();
+                    onTap: () async {
+                      await tts.speak();
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                       child: Image.asset(
                         card.img,
                         fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) {
+                          return Image.network('src');
+                        },
                       ),
                     ),
                   ),
@@ -53,22 +55,5 @@ class CardScreen extends StatelessWidget {
               ),
       ),
     );
-  }
-}
-
-class TTS {
-  final FlutterTts tts = FlutterTts();
-  late final String content;
-
-  TTS({required this.content});
-
-  Future speak() async {
-    // vi-VN
-    // en-US
-    // print(await tts.getLanguages);
-    await tts.setLanguage('vi-VN');
-    await tts.setSpeechRate(0.45);
-    await tts.setPitch(0.9);
-    await tts.speak(content);
   }
 }

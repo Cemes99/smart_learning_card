@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:smart_learning_card/app/base/constant.dart';
 import 'package:smart_learning_card/app/route/app_routes.dart';
 
-import '../feature/login/views/login_screen.dart';
 
 class PreLoginScreen extends StatelessWidget {
   const PreLoginScreen({Key? key}) : super(key: key);

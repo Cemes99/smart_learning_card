@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../view_models/exam_view_model.dart';
 import '../../../../base/constant.dart';
 import '../../../../base/text_to_speech.dart';
-import '../../../../../data/topics/models/card_model.dart';
+import '../../../../../data/cards/models/card_model.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({
